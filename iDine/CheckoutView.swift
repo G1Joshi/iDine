@@ -17,6 +17,11 @@ struct CheckoutView: View {
     @State private var isLoyalty = false
     @State private var loyaltyDetails = ""
 
+    var totalPrice: String {
+        let total = Double(order.total)
+        let tipValue = total / 100 * Double(tipAmount)
+        return (total + tipValue).formatted(.currency(code: "INR"))
+    }
 
     var body: some View {
         Form {
@@ -39,7 +44,7 @@ struct CheckoutView: View {
                 }
                 .pickerStyle(.segmented)
             }
-            Section("Total: $100") {
+            Section("Total: \(totalPrice)") {
                 Button("Confirm Order") {}
             }
         }
